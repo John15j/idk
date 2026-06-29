@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>GoalRace Stadium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="root" class="broadcast">
+
+  <!-- ================= TOP HUD ================= -->
+  <header class="hud">
+    <div class="hud__panel hud__panel--likes">
+      <svg class="hud__heart" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.6-10.2-9.2C.2 8.7 1.6 5 5.3 4.2c2-.4 3.9.5 5 2.1 1.1-1.6 3-2.5 5-2.1 3.7.8 5.1 4.5 3.5 7.6C19.5 16.4 12 21 12 21z" fill="currentColor"/></svg>
+      <span id="likesValue">0</span>
+    </div>
+    <div class="hud__panel hud__panel--timer">
+      <span class="hud__timer-label">MATCH</span>
+      <span id="timerValue">6:00</span>
+    </div>
+    <div class="hud__panel hud__panel--event">
+      <span class="hud__live-dot"></span>
+      <span id="eventIndicator">Waiting for kickoff</span>
+    </div>
+  </header>
+
+  <!-- ================= STADIUM ================= -->
+  <main class="stadium" id="stadium">
+
+    <!-- crowd + lighting backdrop -->
+    <div class="stadium__crowd stadium__crowd--top"><div class="crowd-wave"></div></div>
+    <div class="stadium__lights">
+      <div class="light-beam light-beam--1"></div>
+      <div class="light-beam light-beam--2"></div>
+      <div class="light-beam light-beam--3"></div>
+    </div>
+
+    <!-- jumbotron screen, mounted at the top of the bowl -->
+    <div class="jumbotron-rig">
+      <div class="jumbotron-rig__bezel">
+        <div class="jumbotron-rig__screen" id="jumbotron">GOALRACE</div>
+      </div>
+    </div>
+
+    <!-- LED advertising ribbon -->
+    <div class="led-ribbon">
+      <div class="led-ribbon__track">
+        <span>GOALRACE LIVE</span><span>COMMENT YOUR COUNTRY TO JOIN</span><span>SEND GIFTS TO BOOST YOUR TEAM</span>
+        <span>GOALRACE LIVE</span><span>COMMENT YOUR COUNTRY TO JOIN</span><span>SEND GIFTS TO BOOST YOUR TEAM</span>
+      </div>
+    </div>
+
+    <div class="stadium__field">
+      <div class="tunnel tunnel--left"><div class="tunnel__light"></div><span>TUNNEL</span></div>
+
+      <div class="pitch">
+        <svg class="pitch__lines" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
+          <rect x="4" y="4" width="392" height="292" fill="none" stroke="white" stroke-opacity="0.55" stroke-width="2"/>
+          <line x1="200" y1="4" x2="200" y2="296" stroke="white" stroke-opacity="0.5" stroke-width="2"/>
+          <circle cx="200" cy="150" r="38" fill="none" stroke="white" stroke-opacity="0.5" stroke-width="2"/>
+          <circle cx="200" cy="150" r="2.5" fill="white" fill-opacity="0.6"/>
+          <rect x="4" y="95" width="48" height="110" fill="none" stroke="white" stroke-opacity="0.5" stroke-width="2"/>
+          <rect x="348" y="95" width="48" height="110" fill="none" stroke="white" stroke-opacity="0.5" stroke-width="2"/>
+        </svg>
+        <div class="pitch__fog"></div>
+        <div class="stadium__benches" id="benches"><!-- team zone cards injected here --></div>
+      </div>
+
+      <div class="tunnel tunnel--right"><div class="tunnel__light"></div><span>TUNNEL</span></div>
+    </div>
+
+    <div class="stadium__vignette"></div>
+    <div class="stadium__fx" id="fxLayer"></div>
+    <div class="stadium__trophy" id="trophyLayer"></div>
+  </main>
+
+  <!-- ================= SCOREBOARD ================= -->
+  <section class="scoreboard" id="scoreboard"><!-- rows injected here --></section>
+
+  <!-- ================= BOTTOM INFO RIBBON ================= -->
+  <footer class="guide">
+    <div class="guide__join">
+      <span class="guide__join-label">JOIN YOUR COUNTRY</span>
+      <div class="guide__chips" id="joinKeywords"><!-- country chips injected here --></div>
+    </div>
+    <div class="guide__gifts" id="giftGuide"><!-- gift -> player count cards injected here --></div>
+  </footer>
+
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
