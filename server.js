@@ -313,6 +313,8 @@ function startTestMode() {
   state.testMode = true;
   state.tiktokStatus = "test mode";
   stopTestMode(false);
+  // Auto-start the match — test mode is useless if status !== "running"
+  if (state.status !== "running") startMatch();
   testInterval = setInterval(() => {
     if (state.status !== "running") return;
     const roll = Math.random();
@@ -446,7 +448,6 @@ function handleAdminAction(action, payload) {
     case "fireworks": fxQueue.push({ type: "FIREWORKS" }); flushQueues._dirty = true; break;
     case "moneygun": simulateBigGift(); break;
     case "simulateBigGift": simulateBigGift(); break;
-    case "simulateBigGift": simulateBigGift(); break;
     case "chaosToggle":
       state.chaosMode = !state.chaosMode;
       state.chaosUntil = state.chaosMode ? Date.now() + 8000 : 0;
@@ -520,9 +521,20 @@ function clientConfig() {
   return { COUNTRIES: config.COUNTRIES, GIFTS: config.GIFTS, MATCH_DURATION_SECONDS: config.MATCH_DURATION_SECONDS };
 }
 
+// Diagnostic endpoint — visit /ping to confirm the server is running
+app.get("/ping", (_req, res) => res.json({ ok: true, status: state.status, uptime: process.uptime() }));
+
 // ------------------------------------------------------------
 server.listen(config.PORT, () => {
-  console.log(`GoalRace Engine listening on port ${config.PORT}`);
-  console.log(`Broadcast view: http://localhost:${config.PORT}/`);
-  console.log(`Admin panel:    http://localhost:${config.PORT}/admin.html`);
+  console.log("\n╔══════════════════════════════════════════════════╗");
+  console.log(`║  GoalRace Engine  →  port ${config.PORT}                    ║`);
+  console.log("╠══════════════════════════════════════════════════╣");
+  console.log("║  Broadcast view : http://localhost:" + config.PORT + "/           ║");
+  console.log("║  Admin panel    : http://localhost:" + config.PORT + "/admin.html ║");
+  console.log("║  Health check   : http://localhost:" + config.PORT + "/ping       ║");
+  console.log("╠══════════════════════════════════════════════════╣");
+  console.log("║  CODESPACES USERS — if WebSocket keeps           ║");
+  console.log("║  disconnecting, open the PORTS tab and set       ║");
+  console.log("║  port " + config.PORT + " visibility to PUBLIC.              ║");
+  console.log("╚══════════════════════════════════════════════════╝\n");
 });

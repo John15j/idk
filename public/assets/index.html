@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>GoalRace Stadium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="root" class="broadcast">
+
+  <!-- ===== ZONE 1: TOP HUD ===== -->
+  <header class="hud">
+    <div class="hud__pill hud__pill--likes">
+      <svg class="hud__heart" viewBox="0 0 24 24"><path d="M12 21C12 21 3 15.5 3 9a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12z" fill="currentColor"/></svg>
+      <span id="likesValue">0</span>
+    </div>
+    <div class="hud__pill hud__pill--timer">
+      <span class="hud__timer-label">MATCH</span>
+      <span id="timerValue">6:00</span>
+    </div>
+    <div class="hud__pill hud__pill--event">
+      <span class="hud__live-dot"></span>
+      <span id="eventIndicator">Waiting for kickoff</span>
+    </div>
+  </header>
+
+  <!-- ===== ZONE 2: STADIUM ===== -->
+  <main class="stadium" id="stadium">
+
+    <!-- Outer structural shell + lighting atmosphere -->
+    <div class="stadium__shell">
+
+      <!-- Top stands: executive boxes + away end -->
+      <div class="stands stands--top">
+        <div class="stands__tier stands__tier--3"></div>
+        <div class="stands__tier stands__tier--2"></div>
+        <div class="stands__tier stands__tier--1"></div>
+        <div class="stands__catwalk"></div>
+      </div>
+
+      <!-- Middle row: left stand + pitch + right stand -->
+      <div class="stadium__mid">
+
+        <div class="stands stands--side stands--left">
+          <div class="stands__tier stands__tier--3"></div>
+          <div class="stands__tier stands__tier--2"></div>
+          <div class="stands__tier stands__tier--1 stands__tier--home"></div>
+          <div class="tunnel-mouth tunnel-mouth--left">
+            <div class="tunnel-light"></div>
+            <span>TUN</span>
+          </div>
+        </div>
+
+        <!-- The pitch and everything directly around it -->
+        <div class="pitch-zone">
+          <!-- LED advertising board – top -->
+          <div class="led-board led-board--top">
+            <div class="led-board__inner" id="ledBoardTop">GOALRACE LIVE · COMMENT YOUR COUNTRY TO JOIN · SEND GIFTS TO BOOST YOUR TEAM ·</div>
+          </div>
+
+          <!-- The grass pitch -->
+          <div class="pitch">
+            <!-- Corner flags -->
+            <div class="corner-flag corner-flag--tl"></div>
+            <div class="corner-flag corner-flag--tr"></div>
+            <div class="corner-flag corner-flag--bl"></div>
+            <div class="corner-flag corner-flag--br"></div>
+
+            <!-- SVG field markings -->
+            <svg class="pitch__lines" viewBox="0 0 420 270" preserveAspectRatio="none" aria-hidden="true">
+              <!-- outer boundary -->
+              <rect x="3" y="3" width="414" height="264" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="2.5"/>
+              <!-- halfway line -->
+              <line x1="210" y1="3" x2="210" y2="267" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+              <!-- centre circle -->
+              <circle cx="210" cy="135" r="40" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+              <!-- centre spot -->
+              <circle cx="210" cy="135" r="3" fill="rgba(255,255,255,0.8)"/>
+              <!-- left penalty box -->
+              <rect x="3" y="72" width="66" height="126" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="2"/>
+              <!-- left 6-yard box -->
+              <rect x="3" y="105" width="22" height="60" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+              <!-- left penalty spot -->
+              <circle cx="51" cy="135" r="2.5" fill="rgba(255,255,255,0.7)"/>
+              <!-- right penalty box -->
+              <rect x="351" y="72" width="66" height="126" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="2"/>
+              <!-- right 6-yard box -->
+              <rect x="395" y="105" width="22" height="60" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+              <!-- right penalty spot -->
+              <circle cx="369" cy="135" r="2.5" fill="rgba(255,255,255,0.7)"/>
+              <!-- left arc -->
+              <path d="M 69 113 A 40 40 0 0 1 69 157" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+              <!-- right arc -->
+              <path d="M 351 113 A 40 40 0 0 0 351 157" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+            </svg>
+
+            <!-- Fog/atmosphere overlay -->
+            <div class="pitch__atmos"></div>
+
+            <!-- Team bench zones (8 countries = 2 rows × 4 cols) -->
+            <div class="stadium__benches" id="benches"></div>
+          </div>
+
+          <!-- LED advertising board – bottom -->
+          <div class="led-board led-board--bottom">
+            <div class="led-board__inner">GOALRACE · COMMENT YOUR TEAM · ROSE=+5pts · LION=+150pts · GALAXY=+500pts · MONEYGUN=+1000pts ·</div>
+          </div>
+        </div><!-- /pitch-zone -->
+
+        <div class="stands stands--side stands--right">
+          <div class="tunnel-mouth tunnel-mouth--right">
+            <div class="tunnel-light"></div>
+            <span>TUN</span>
+          </div>
+          <div class="stands__tier stands__tier--1 stands__tier--away"></div>
+          <div class="stands__tier stands__tier--2"></div>
+          <div class="stands__tier stands__tier--3"></div>
+        </div>
+
+      </div><!-- /stadium__mid -->
+
+      <!-- Bottom stands: home end (nearest the camera) -->
+      <div class="stands stands--bottom">
+        <div class="stands__catwalk"></div>
+        <div class="stands__tier stands__tier--1 stands__tier--home-end"></div>
+        <div class="stands__tier stands__tier--2"></div>
+        <div class="stands__tier stands__tier--3"></div>
+      </div>
+
+    </div><!-- /stadium__shell -->
+
+    <!-- Jumbotron -->
+    <div class="jumbotron-rig">
+      <div class="jumbotron-rig__bezel">
+        <div class="jumbotron-rig__screen" id="jumbotron">GOALRACE</div>
+      </div>
+    </div>
+
+    <!-- Spotlights -->
+    <div class="spotlight spotlight--1"></div>
+    <div class="spotlight spotlight--2"></div>
+    <div class="spotlight spotlight--3"></div>
+    <div class="spotlight spotlight--4"></div>
+
+    <!-- Vignette + FX layers -->
+    <div class="stadium__vignette"></div>
+    <div class="stadium__fx" id="fxLayer"></div>
+    <div class="stadium__trophy" id="trophyLayer"></div>
+
+  </main>
+
+  <!-- ===== ZONE 3: SCOREBOARD ===== -->
+  <section class="scoreboard" id="scoreboard"></section>
+
+  <!-- ===== ZONE 4: BOTTOM GUIDE ===== -->
+  <footer class="guide">
+    <div class="guide__join">
+      <span class="guide__join-label">JOIN YOUR COUNTRY</span>
+      <span class="guide__chips" id="joinKeywords"></span>
+    </div>
+    <div class="guide__gifts" id="giftGuide"></div>
+  </footer>
+
+</div>
+<script src="game.js"></script>
+</body>
+</html>
